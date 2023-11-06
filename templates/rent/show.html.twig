@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ voitureLocPerso.modele}} - Carsen Automobile{% endblock %}
+
+{% block content %}
+    <div class="card border-0 mb-3" style="max-width: 2240px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="/uploads/photoCarLoc/{{ voitureLocPerso.photo }}" alt="{{ voitureLocPerso.modele}}" class="img-fluid rounded-start">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ voitureLocPerso.modele }}</h5>
+                    <p class="card-text">{{ voitureLocPerso.description }}</p>
+                    <hr>
+                    <p>Location : Du {{dateDebut}} Au {{dateFin}} </p>
+                    <p>Durée : {{ nombreDeJour }} jours</p>
+                    <p>Prix / jour : {{ (voitureLocPerso.prix/100)|number_format(0, ',', ' ') }} FCFA</p>
+                    <h6 class="card-title">Montant Total : {{ ((voitureLocPerso.prix*nombreDeJour)/100)|number_format(0, ',', ' ') }} FCFA</h6>
+                    <hr>
+                    <div class="d-grid gap-2 col-4 ">
+                    <a href="{{ path('reservation',{'dateDebut' : dateDebut, 'dateFin' : dateFin,'nombreDeJour' : nombreDeJour,'id' : voitureLocPerso.id}) }}" class="btn btn-primary">Réserver </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte-Propriétaire{% endblock %}
+
+{% block content %}
+    <h1>Mon compte</h1>
+    Bienvenu {{ app.user ? app.user.prenom }} dans votre compte. <br>
+    c'est dans cette espace que vous allez pouvoir gérer toutes vos informations personnelles.
+    <hr>
+
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+             <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Mes demandes</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Vente</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a href="{{ path('ownerAccountLoc') }}" style="text-decoration: none"><button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Location</button></a>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Messagerie</button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Paiement</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <table class="table table-sm table-striped ">
+                <thead class="table-info">
+                <tr>
+                    <th scope="col">Type de voiture</th>
+                    <th scope="col">Marque</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Type de demande</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Photo</th>
+                    <th scope="col">Traitement</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for demande in demandeBi %}
+                    <tr>
+                        <td>{{ demande.typeVoiture }}</td>
+                        <td>{{ demande.marque }}</td>
+                        <td>{{ demande.prix|number_format(0, ',', ' ') }} FCFA</td>
+                        {% if demande.etat is defined  %}
+                            <td> Demande de Vente</td>
+                        {% else %}
+                            <td> Demande de location</td>
+                        {% endif %}
+                        <td>{{ demande.date | date('y/m/d') }}</td>
+                        <td><a href="{{ asset('uploads/photoCar/' ~ demande.photo) }}" style="text-decoration:none" target="_blank">{{ demande.photo}}</a></td>
+                        <td>En cours...</td>
+
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            {% block plus %}
+                <div class="mb-3 w-50">
+                    {{ form_start(form) }}
+                    {{ form_end(form) }}
+                </div>
+            {% endblock %}
+
+        </div>
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+            ...
+        </div>
+
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+    </div>
+
+{% endblock %}

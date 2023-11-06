@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block carousel %} {% endblock %}
+{% block content %}
+    <h3>Nos meilleures ventes</h3>
+    <p>Décrouvez les voitures les plus vendues.</p>
+    <div class="row">
+        {% for voiture in voitures %}
+            <div class="col-md-3">
+                 {%  include 'voiture/header_voiture.html.twig'%}
+            </div>
+        {% endfor %}
+    </div><!-- /.row -->
+
+
+    <!-- START THE FEATURETTES -->
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading fw-normal lh-1">Pourquoi choisir Carsen Automobile ?</h2>
+            <p class="lead">Carsen Automobile est un acteur incontournable dans la vente et location de voitures au Sénégal. Louer chez Carsen Automobile , c’est non seulement faire le choix de l’expérience et de la confiance, mais aussi opter pour notre expertise.</p>
+        </div>
+        <div class="col-md-5">
+            <img src="/uploads/client.jpg" width="100%" height="auto" alt="CoolBrand">
+
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading fw-normal lh-1">Plus qu’un simple service.</h2>
+            <p class="lead"> Carsen Automobile est votre partenaire pour une location fiable et des voyages réussis.
+                Avec Carsen Automobile, louez en toute liberté</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+            <img src="/uploads/cli2.jpg" width="100%" height="auto" alt="CoolBrand">
+
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading fw-normal lh-1">La solution de location Carsen Automobile, c’est la promesse :</h2>
+            <p class="lead">D’un large choix de véhicules,d’un parc automobile moderne et de dernière génération, des formules de location adaptées à vos besoins</p>
+        </div>
+        <div class="col-md-5">
+            <img src="/uploads/entretien.jpg" width="100%" height="auto" alt="CoolBrand">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <!-- /END THE FEATURETTES -->
+
+{% endblock %}

@@ -1,0 +1,11 @@
+<div class="voiture-item">
+    <a href="{{ path('voiturePerso',{'slug' : voiture.slug}) }}" style="text-decoration: none; color:inherit">
+        <div class="card bg-light  " style="width: 20rem;">
+            <img src="/uploads/photoCarAdmin/{{ voiture.photo }}" alt="{{ voiture.modele}}">
+            <div class="card-body">
+                <h5 class="card-title">{{ voiture.modele }}</h5>
+                <p class="card-text text-sm-start">{{ voiture.description }}</p>
+                <h6 class="card-title">Prix: {{ (voiture.prix/100)|number_format(0, ',', ' ') }} FCFA</h6>
+            </div>
+        </div></a>
+</div>

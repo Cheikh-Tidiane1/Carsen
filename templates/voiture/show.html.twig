@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ voiture.modele}} - Carsen Automobile{% endblock %}
+
+{% block content %}
+   <div class="card border-0 mb-3" style="max-width: 2240px;">
+      <div class="row g-0">
+         <div class="col-md-4">
+            <img src="/uploads/photoCarAdmin/{{ voiture.photo }}" alt="{{ voiture.modele}}" class="img-fluid rounded-start">
+         </div>
+         <div class="col-md-8">
+            <div class="card-body">
+               <h5 class="card-title">{{ voiture.modele }}</h5>
+               <p class="card-text">{{ voiture.description }}</p>
+               <hr>
+               <h6 class="card-title">Prix : {{ (voiture.prix/100)|number_format(0, ',', ' ') }} FCFA</h6>
+               <a href="{{ path('add_to_cart',{'id': voiture.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+            </div>
+         </div>
+      </div>
+   </div>
+
+{% endblock %}

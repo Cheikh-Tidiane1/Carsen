@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Valider ma commande - Carsen Automobile{% endblock %}
+
+{% block content %}
+<h3>Je passe ma commande</h3>
+    <p>Choissez vos préférences avant de passer votre commande sur Carsen-Automobile</p>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="col-form-label">Adresse</p>
+            <p class="form-check">{{ adresse }}</p>
+            {{ form_start(form,{action:path('commande_recap')}) }}
+            {{ form_end(form) }}
+
+        </div>
+        <div class="col-md-6">
+            <b class="col-form-label">Recap de ma commande</b>
+            <div class="order-summary">
+                {% for key,voiture in cart %}
+                    <div class="row {% if key > 0 %}mt-2{% endif %}">
+                        <div class="col-2">
+                            <img src="/uploads/photoCarAdmin/{{voiture.voiture.photo}}" alt="{{ voiture.voiture.modele }}" height="60px">
+                        </div>
+                        <div class="col-8 my-auto ">
+                            {{ voiture.voiture.modele }}<br>
+                            <small>Marque : {{ voiture.voiture.marque }} </small>
+                        </div>
+                        <div class="col-2 my-auto">
+                            x{{ voiture.quantity }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

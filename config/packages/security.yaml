@@ -4,14 +4,36 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_client_provider:
+            entity:
+                class: App\Entity\Client
+                property: email
+        app_proprietaire_provider:
+            entity:
+                class: App\Entity\Proprietaire
+                property: email
+        app_administrateur_provider:
+            entity:
+                class: App\Entity\Administrateur
+                property: email
+        chain_provider:
+            chain:
+                providers: [app_client_provider, app_proprietaire_provider,app_administrateur_provider]
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: chain_provider
+            custom_authenticator: App\Security\LoginCustomerAuthenticator
+            logout:
+                path: app_logout
+
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -22,8 +44,15 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/compteClient, roles: ROLE_CUSTOMER }
+         - { path: ^/compteOwner, roles: ROLE_OWNER }
+         - { path: ^/commande, roles: ROLE_CUSTOMER }
+         - { path: ^/reservation, roles: ROLE_CUSTOMER }
+    role_hierarchy:
+        ROLE_CUSTOMER: ROLE_USER
+        ROLE_OWNER: ROLE_USER
+        ROLE_ADMIN: [ROLE_CUSTOMER,ROLE_OWNER]
 
 when@test:
     security:

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - Carsen Automobile{% endblock %}
+
+{% block content %}
+  <h1>Mon compte</h1>
+  Bienvenu {{ app.user ? app.user.prenom }} dans votre compte. <br>
+  c'est dans cette espace que vous allez pouvoir gérer toutes vos informations personnelles.
+
+{% endblock %}

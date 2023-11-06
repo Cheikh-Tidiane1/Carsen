@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement de ma commande - Carsen Automobile{% endblock %}
+
+{% block content %}
+    <h3>Mon récapulatif</h3>
+    <p>Vérifiez vos informations avant de payer votre commande</p>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <strong>Mon adresse de livraison</strong><br>
+            <div class="form-check mt-4">
+                {{ adresse }}
+            </div>
+
+            <strong>Mode de livraison</strong><br>
+            <div class="form-check mt-4">
+                {{ mlivraison }}
+            </div>
+
+            <strong>Mode de paiement</strong><br>
+            <div class="form-check mt-4">
+                {{mpaiement}}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <b class="col-form-label">Recap de ma commande</b>
+            <div class="order-summary">
+                {% set total = null %}
+                {% for key,voiture in cart %}
+                    <div class="row {% if key > 0 %}mt-2{% endif %}">
+                        <div class="col-2">
+                            <img src="/uploads/photoCarAdmin/{{voiture.voiture.photo}}" alt="{{ voiture.voiture.modele }}" height="70px"><br>
+                        </div>
+                        <div class="col-8 my-auto">
+                            {{ voiture.voiture.modele }}<br>
+                            <small>
+                                Marque : {{ voiture.voiture.marque }}
+                                <br>
+                                x{{ voiture.quantity }}
+                            </small>
+                        </div>
+                        <div class="col-2 my-auto">
+                            {{ (voiture.voiture.prix * voiture.quantity)/100|number_format(0, '.', ' ') }} FCFA
+                        </div>
+                    </div>
+                    {% set total = total  + (voiture.voiture.prix * voiture.quantity) %}
+                {% endfor %}
+            </div>
+            <hr>
+            <strong> Sous-Total : </strong> {{ (total/100)|number_format(0, '.', ' ') }} FCFA <br>
+            <hr>
+
+            <div class="btn btn-success btn-block mt-3">Payer {{ (total/100)|number_format(0, '.', ' ') }} FCFA</div>
+        </div>
+    </div>
+{% endblock %}

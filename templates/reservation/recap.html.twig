@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation - Recap{% endblock %}
+
+{% block content %}
+    <h3>Mon récapulatif</h3>
+    <p>Vérifiez vos informations avant de payer</p>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <strong>Mon adresse de livraison</strong><br>
+            <div class="form-check mt-4">
+                {{ adresse }}
+            </div>
+
+            <strong>Mode de livraison</strong><br>
+            <div class="form-check mt-4">
+                {{ mlivraison }}
+            </div>
+
+            <strong>Mode de paiement</strong><br>
+            <div class="form-check mt-4">
+                {{mpaiement}}
+            </div>
+        </div>
+    <div class="col-md-6">
+        <b class="col-form-label">Recap de ma Reservation</b>
+        <div class="order-summary">
+            <div class="row">
+                <div class="col-2">
+                    <img src="/uploads/photoCarLoc/{{voitureloc.photo}}" alt="{{ voitureloc.modele }}" height="60px">
+                </div>
+                <div class="col-8 my-auto ">
+                    Modèle  : {{ voitureloc.modele }}<br>
+                    Marque : {{ voitureloc.marque }}<br>
+                    Location : Du {{ dateDebut }} au {{ dateFin }} <br>
+                    Nombre de jour : {{ nombreDeJour }} <br>
+                    Prix / jour : {{ (voitureloc.prix/100)|number_format(0, ',', ' ') }} FCFA
+                </div>
+
+            </div>
+        </div>
+        <hr>
+          <strong> Montant Total : </strong> {{ ((voitureloc.prix * nombreDeJour)/100)|number_format(0, '.', ' ') }} FCFA
+        <hr>
+        <div class="btn btn-success btn-block mt-3 d-grid gap-2 col-4">Payer | {{ ((voitureloc.prix * nombreDeJour)/100)|number_format(0, '.', ' ') }} FCFA</div>
+
+    </div>
+{% endblock %}
